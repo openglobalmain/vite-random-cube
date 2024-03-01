@@ -1,0 +1,30 @@
+@import "../base/base.scss";
+
+.header-div {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 64px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .header-output {
+        white-space: nowrap;
+        padding: 0 14px;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .login-button {
+        font-weight: 400;
+        border-radius: 5px;
+        background-color: $color-purple;
+        margin-left: 5px;
+        &:active {
+            background-color: $color-purple-active;
+        }
+    }
+}
