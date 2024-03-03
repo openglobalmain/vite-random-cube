@@ -31,18 +31,14 @@ export const CubeComponent = () => {
         diceSide: userDiceSide,
         diceBetSide: userDiceBetSide,
     } = useAppSelector((state) => state.userInfo);
-    const userCurrency = useAppSelector(
-        (state) => state.userInfo.userInfoObj.currency
+    const { active: isLoggedIn, currency: userCurrency } = useAppSelector(
+        (state) => state.userInfo.userInfoObj
     );
     const isPlayerCanPlay = parseFloat(userBalance) > 0;
 
     const [actualBenefits, setActualBenefits] = useState<number>(0);
     const [wasBetAdded, setWasBetAdded] = useState<boolean>(false);
     const [isWon, setIsWon] = useState<boolean>(false);
-
-    const isLoggedIn = useAppSelector(
-        (state) => state.userInfo.userInfoObj.active
-    );
 
     const isSubmitDisable =
         parseFloat(userBalance) < parseFloat(userBet) ||

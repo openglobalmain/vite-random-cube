@@ -9,6 +9,7 @@ import {
     setUserLogin,
     setUserPassword,
 } from "../../stateManager/reducers/UserInfoSlice";
+import { betVocabulary } from "../../assets/vocabulary";
 
 export const LoginWidget = () => {
     const dispatch = useDispatch();
@@ -21,10 +22,8 @@ export const LoginWidget = () => {
     const [loginMute, { data: loginUserInfo, error: loginError }] =
         useLoginMutation();
 
-    const localUserLogin = useAppSelector((state) => state.userInfo.userLogin);
-    const localUserPassword = useAppSelector(
-        (state) => state.userInfo.userPassword
-    );
+    const { userLogin: localUserLogin, userPassword: localUserPassword } =
+        useAppSelector((state) => state.userInfo);
 
     function setUserPasswordFunc(event: any) {
         const value = event.target.value;
@@ -123,7 +122,7 @@ export const LoginWidget = () => {
                     <div className="input-block">
                         {isLoginErrorShowing && (
                             <div className="login-error">
-                                Ошибка! Попробуйте снова
+                                {betVocabulary.repeatWarning}
                             </div>
                         )}
 
@@ -143,7 +142,7 @@ export const LoginWidget = () => {
                         ></input>
                         {validateError && (
                             <div className="login-error">
-                                Ошибка! Используйте латинские буквы и цифры
+                                {betVocabulary.latinWarning}
                             </div>
                         )}
                         <input

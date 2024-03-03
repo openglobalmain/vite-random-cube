@@ -12,13 +12,11 @@ import { clearWebStorage } from "../../features/webStorageSaver";
 export const Header = () => {
     const dispatch = useDispatch();
 
-    const isLoggedIn = useAppSelector(
-        (state) => state.userInfo.userInfoObj.active
+    const { active: isLoggedIn, currency: actualCurrency } = useAppSelector(
+        (state) => state.userInfo.userInfoObj
     );
+
     const actualBalance = useAppSelector((state) => state.userInfo.userBalance);
-    const actualCurrency = useAppSelector(
-        (state) => state.userInfo.userInfoObj.currency
-    );
 
     function showMeLoginWidget() {
         dispatch(setLoginWidgetActive(true));

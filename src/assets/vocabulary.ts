@@ -7,9 +7,11 @@ export const betVocabulary = {
     bet: "Сделать ставку",
     betVariants: "Варианты ставок",
     betSize: "Размер ставки",
-    signIn: 'Вход',
+    signIn: "Вход",
     signOut: "Выход",
     updateBalance: "Обновить баланс",
     register: "Регистрация",
-
-}
+    latinWarning: "Ошибка! Используйте латинские буквы и цифры",
+    repeatWarning: "Ошибка! Попробуйте снова",
+    unrealEvent: "Недопустимое событие: ",
+};
