@@ -5,7 +5,7 @@ import { newBettingApi } from "../api/apiSlice";
 export const store = configureStore({
     reducer: {
         [newBettingApi.reducerPath]: newBettingApi.reducer,
-        products: userInfoReducer,
+        userInfo: userInfoReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat([newBettingApi.middleware]),

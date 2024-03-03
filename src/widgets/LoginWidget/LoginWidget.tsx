@@ -21,9 +21,9 @@ export const LoginWidget = () => {
     const [loginMute, { data: loginUserInfo, error: loginError }] =
         useLoginMutation();
 
-    const localUserLogin = useAppSelector((state) => state.products.userLogin);
+    const localUserLogin = useAppSelector((state) => state.userInfo.userLogin);
     const localUserPassword = useAppSelector(
-        (state) => state.products.userPassword
+        (state) => state.userInfo.userPassword
     );
 
     function setUserPasswordFunc(event: any) {

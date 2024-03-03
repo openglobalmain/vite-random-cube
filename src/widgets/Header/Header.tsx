@@ -13,11 +13,11 @@ export const Header = () => {
     const dispatch = useDispatch();
 
     const isLoggedIn = useAppSelector(
-        (state) => state.products.userInfoObj.active
+        (state) => state.userInfo.userInfoObj.active
     );
-    const actualBalance = useAppSelector((state) => state.products.userBalance);
+    const actualBalance = useAppSelector((state) => state.userInfo.userBalance);
     const actualCurrency = useAppSelector(
-        (state) => state.products.userInfoObj.currency
+        (state) => state.userInfo.userInfoObj.currency
     );
 
     function showMeLoginWidget() {

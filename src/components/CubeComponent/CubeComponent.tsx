@@ -30,18 +30,18 @@ export const CubeComponent = () => {
         userChoice,
         diceSide: userDiceSide,
         diceBetSide: userDiceBetSide,
-    } = useAppSelector((state) => state.products);
+    } = useAppSelector((state) => state.userInfo);
     const userCurrency = useAppSelector(
-        (state) => state.products.userInfoObj.currency
+        (state) => state.userInfo.userInfoObj.currency
     );
     const isPlayerCanPlay = parseFloat(userBalance) > 0;
 
     const [actualBenefits, setActualBenefits] = useState<number>(0);
     const [wasBetAdded, setWasBetAdded] = useState<boolean>(false);
-    const [isWinned, setIsWinned] = useState<boolean>(false);
+    const [isWon, setIsWon] = useState<boolean>(false);
 
     const isLoggedIn = useAppSelector(
-        (state) => state.products.userInfoObj.active
+        (state) => state.userInfo.userInfoObj.active
     );
 
     const isSubmitDisable =
@@ -103,10 +103,10 @@ export const CubeComponent = () => {
             diceRoll: diceRoll,
         });
         if (actualLocalBalance > parseFloat(userBalance)) {
-            setIsWinned(true);
+            setIsWon(true);
             setActualBenefits(actualLocalBalance - parseFloat(userBalance));
         } else {
-            setIsWinned(false);
+            setIsWon(false);
         }
         dispatch(setActualSide(diceRoll));
         dispatch(setActualBalance(actualLocalBalance));
@@ -131,7 +131,7 @@ export const CubeComponent = () => {
                 <MainPageHeader
                     isLoggedIn={isLoggedIn}
                     wasBetAdded={wasBetAdded}
-                    isWinned={isWinned}
+                    isWon={isWon}
                     actualDiceSide={userDiceSide}
                     actualBenefits={actualBenefits}
                     actualCurrency={userCurrency}

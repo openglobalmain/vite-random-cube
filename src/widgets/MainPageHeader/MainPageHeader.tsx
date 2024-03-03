@@ -4,7 +4,7 @@ import { IMPHeaderProps } from "../../models/IMHeaderProps";
 export const MainPageHeader = ({
     isLoggedIn,
     wasBetAdded,
-    isWinned,
+    isWon,
     actualDiceSide,
     actualBenefits,
     actualCurrency,
@@ -18,7 +18,7 @@ export const MainPageHeader = ({
                         <h3>Результат броска кубика: {actualDiceSide}</h3>
                         {isPlayerCanPlay ? (
                             <React.Fragment>
-                                {isWinned ? (
+                                {isWon ? (
                                     <h4>
                                         Вы выиграли: {actualBenefits}{" "}
                                         {actualCurrency}!{" "}
