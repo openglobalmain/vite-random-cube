@@ -1,7 +1,7 @@
-const webStorageFieldPrefix = "sputnik.";
+const webStorageFieldPrefix = "sintez.";
 
 export function getItemWebStorage(key: string) {
-    const localPersist = localStorage.getItem("sputnik.persist");
+    const localPersist = localStorage.getItem("sintez.persist");
     const persist = localPersist && JSON.parse(localPersist);
     let itemLocal: any;
     let item: any;
@@ -16,7 +16,7 @@ export function getItemWebStorage(key: string) {
 }
 
 export function setItemWebStorage(key: string, value: any) {
-    const localPersist = localStorage.getItem("sputnik.persist");
+    const localPersist = localStorage.getItem("sintez.persist");
     const persist = localPersist && JSON.parse(localPersist);
     if (persist) {
         localStorage.setItem(

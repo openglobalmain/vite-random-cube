@@ -1,4 +1,5 @@
 import React from "react";
+import { IMPHeaderProps } from "../../models/IMHeaderProps";
 
 export const MainPageHeader = ({
     isLoggedIn,
@@ -7,17 +8,8 @@ export const MainPageHeader = ({
     actualDiceSide,
     actualBenefits,
     actualCurrency,
-    isPlayerCanPlay
-}: {
-    isLoggedIn: boolean;
-    wasBetAdded: boolean;
-    isWinned: boolean;
-    actualDiceSide: number;
-    actualBenefits: number;
-    actualCurrency: string;
-    isPlayerCanPlay: boolean;
-}) => {
-    
+    isPlayerCanPlay,
+}: IMPHeaderProps) => {
     return (
         <div>
             {isLoggedIn ? (

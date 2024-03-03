@@ -2,11 +2,3 @@
 @use "widgets/header.scss";
 @use "components/cubeComponent.scss";
 
-.app-container{
-    height: 100%;
-    width: 100%;
-
-    button{
-        transition: background-color 0.1s;
-    }
-}

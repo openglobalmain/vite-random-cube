@@ -3,8 +3,9 @@ import {
     setActualBalance,
     setActualBet,
     setActualBetSide,
-    setActualSide, setTypeOfUserChoice,
-    setUserInfoObj
+    setActualSide,
+    setTypeOfUserChoice,
+    setUserInfoObj,
 } from "../../stateManager/reducers/UserInfoSlice";
 import { playGame } from "../../features/diceFeatures/diceFeatures";
 import { useAppSelector } from "../../stateManager/hooks/redux";
@@ -20,22 +21,20 @@ export const CubeComponent = () => {
     const selectRef = useRef(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const {
-        data: actualUserInfo,
-        isSuccess: actualUserInfoSuccess,
-    } = useGetCurrentUserQuery();
+    const { data: actualUserInfo, isSuccess: actualUserInfoSuccess } =
+        useGetCurrentUserQuery();
 
-    const actualBalance = useAppSelector((state) => state.products.userBalance);
-    const actualBet = useAppSelector((state) => state.products.userBet);
-    const actualChoice = useAppSelector((state) => state.products.userChoice);
-    const actualDiceSide = useAppSelector((state) => state.products.diceSide);
-    const actualDiceBetSide = useAppSelector(
-        (state) => state.products.diceBetSide
-    );
-    const actualCurrency = useAppSelector(
+    const {
+        userBalance,
+        userBet,
+        userChoice,
+        diceSide: userDiceSide,
+        diceBetSide: userDiceBetSide,
+    } = useAppSelector((state) => state.products);
+    const userCurrency = useAppSelector(
         (state) => state.products.userInfoObj.currency
     );
-    const isPlayerCanPlay = parseFloat(actualBalance) > 0;
+    const isPlayerCanPlay = parseFloat(userBalance) > 0;
 
     const [actualBenefits, setActualBenefits] = useState<number>(0);
     const [wasBetAdded, setWasBetAdded] = useState<boolean>(false);
@@ -46,9 +45,9 @@ export const CubeComponent = () => {
     );
 
     const isSubmitDisable =
-        parseFloat(actualBalance) < parseFloat(actualBet) ||
-        actualChoice === "no" ||
-        actualBet === undefined;
+        parseFloat(userBalance) < parseFloat(userBet) ||
+        userChoice === "no" ||
+        userBet === undefined;
 
     const valueExample = () => {
         return [
@@ -60,18 +59,17 @@ export const CubeComponent = () => {
             "25.00",
             "60.00",
             "100.00",
-        ].filter((item) => parseFloat(item) <= parseFloat(actualBalance));
+        ].filter((item) => parseFloat(item) <= parseFloat(userBalance));
     };
 
     useEffect(() => {
         dispatch(
             setActualBet(valueExample.length === 0 ? valueExample()[0] : "")
         );
-    }, [actualBalance]);
+    }, [userBalance]);
 
     useEffect(() => {
         if (actualUserInfo && actualUserInfo.error != true) {
-            console.log(actualUserInfo)
             dispatch(setUserInfoObj(actualUserInfo));
         }
     }, [actualUserInfo, actualUserInfoSuccess]);
@@ -98,15 +96,15 @@ export const CubeComponent = () => {
     function setNewDataFromBet() {
         const diceRoll = Math.floor(Math.random() * 6) + 1;
         const actualLocalBalance = playGame({
-            balance: parseFloat(actualBalance),
-            bet: parseFloat(actualBet),
-            event: actualChoice,
-            currentNumber: actualDiceBetSide,
+            balance: parseFloat(userBalance),
+            bet: parseFloat(userBet),
+            event: userChoice,
+            currentNumber: userDiceBetSide,
             diceRoll: diceRoll,
         });
-        if (actualLocalBalance > parseFloat(actualBalance)) {
+        if (actualLocalBalance > parseFloat(userBalance)) {
             setIsWinned(true);
-            setActualBenefits(actualLocalBalance - parseFloat(actualBalance));
+            setActualBenefits(actualLocalBalance - parseFloat(userBalance));
         } else {
             setIsWinned(false);
         }
@@ -134,20 +132,16 @@ export const CubeComponent = () => {
                     isLoggedIn={isLoggedIn}
                     wasBetAdded={wasBetAdded}
                     isWinned={isWinned}
-                    actualDiceSide={actualDiceSide}
+                    actualDiceSide={userDiceSide}
                     actualBenefits={actualBenefits}
-                    actualCurrency={actualCurrency}
+                    actualCurrency={userCurrency}
                     isPlayerCanPlay={isPlayerCanPlay}
                 />
                 <div
-                    className={
-                        isLoggedIn
-                            ? "cube-container active"
-                            : "cube-container passive"
-                    }
+                    className={`cube-container " ${isLoggedIn ? "active" : "passive"}`}
                 >
                     <div className="dice-container">
-                        <Dice count={actualDiceSide} />
+                        <Dice count={userDiceSide} />
                     </div>
 
                     <div className="selector-container">
@@ -156,7 +150,7 @@ export const CubeComponent = () => {
                             className={`bet-amount ${valueExample().length === 0 ? "disabled" : ""}`}
                             onChange={setNewUserBet}
                             ref={selectRef}
-                            value={actualBet}
+                            value={userBet}
                         >
                             {valueExample().length === 0 ? (
                                 <option>Недостаточный баланс</option>
@@ -172,7 +166,7 @@ export const CubeComponent = () => {
                         <div className="buttons-inside">
                             <button
                                 className={
-                                    actualChoice === betVocabulary.even
+                                    userChoice === betVocabulary.even
                                         ? "active"
                                         : "non-active"
                                 }
@@ -182,7 +176,7 @@ export const CubeComponent = () => {
                             </button>
                             <button
                                 className={
-                                    actualChoice === betVocabulary.odd
+                                    userChoice === betVocabulary.odd
                                         ? "active"
                                         : "non-active"
                                 }
@@ -192,8 +186,7 @@ export const CubeComponent = () => {
                             </button>
                             <button
                                 className={
-                                    actualChoice ===
-                                    betVocabulary.fromOneToThree
+                                    userChoice === betVocabulary.fromOneToThree
                                         ? "active"
                                         : "non-active"
                                 }
@@ -203,7 +196,7 @@ export const CubeComponent = () => {
                             </button>
                             <button
                                 className={
-                                    actualChoice === betVocabulary.fromFourToSix
+                                    userChoice === betVocabulary.fromFourToSix
                                         ? "active"
                                         : "non-active"
                                 }
@@ -213,8 +206,7 @@ export const CubeComponent = () => {
                             </button>
                             <button
                                 className={
-                                    actualChoice ===
-                                    betVocabulary.specificNumber
+                                    userChoice === betVocabulary.specificNumber
                                         ? "active"
                                         : "non-active"
                                 }
@@ -224,7 +216,7 @@ export const CubeComponent = () => {
                                 <input
                                     className="bet-value-input"
                                     type="text"
-                                    value={actualDiceBetSide}
+                                    value={userDiceBetSide}
                                     onChange={setNewUserSide}
                                     onClick={() => {
                                         dispatch(

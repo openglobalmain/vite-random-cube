@@ -9,7 +9,6 @@ import {
     setUserLogin,
     setUserPassword,
 } from "../../stateManager/reducers/UserInfoSlice";
-import { getItemWebStorage } from "../../features/webStorageSaver";
 
 export const LoginWidget = () => {
     const dispatch = useDispatch();
@@ -31,7 +30,6 @@ export const LoginWidget = () => {
         const value = event.target.value;
         const data = event.nativeEvent.data;
         const regex = /[A-Za-z0-9]/;
-        console.log(event);
         if (regex.test(data)) {
             setValidateError(false);
             dispatch(setUserPassword(value));
@@ -50,7 +48,6 @@ export const LoginWidget = () => {
         const value = event.target.value;
         const data = event.nativeEvent.data;
         const regex = /[A-Za-z0-9]/;
-        console.log(event);
         if (regex.test(data)) {
             setValidateError(false);
             dispatch(setUserLogin(value));
@@ -72,15 +69,11 @@ export const LoginWidget = () => {
     async function loginSubmitter(login: string, password: string) {
         const result = await loginMute({ login, password });
         if ("data" in result) {
-            console.log(result.data);
             if (login && password) {
                 if (!loginUserInfo) {
                     showLoginError();
-                    console.log(getItemWebStorage("token"));
                     dispatch(setUserInfoObj(result.data));
                 } else {
-                    console.log("submitted", result);
-                    console.log(getItemWebStorage("token"));
                     dispatch(setLoginWidgetActive(false));
                 }
             }
@@ -99,7 +92,7 @@ export const LoginWidget = () => {
     }
 
     useEffect(() => {
-        const handleKeyDown = (event: any) => {
+        const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === "Enter") {
                 loginSubmitter(localUserLogin, localUserPassword);
             }

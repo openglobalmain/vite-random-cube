@@ -7,14 +7,14 @@ import {
 import { clientSample } from "../../assets/clientSample";
 
 const initialState: IUserAction = {
-    userBalance: getItemWebStorage("userBalance") || "100",//Вынужденное решение, за неимением возможности класть информацию в бэк
+    userBalance: getItemWebStorage("userBalance") || "100", //Вынужденное решение, за неимением возможности класть информацию в бэк
     userBet: "1.00",
     userChoice: "no",
     diceSide: 6,
     diceBetSide: 1,
     userPassword: "",
     userLogin: "",
-    userInfoObj: clientSample,//Вынужденное решение, за неимением возможности класть информацию в бэк
+    userInfoObj: clientSample, //Вынужденное решение, за неимением возможности класть информацию в бэк
     isLoginWidgetActive: false,
     isRegisterWidgetActive: false,
 };
@@ -46,14 +46,14 @@ export const userInfoSlice = createSlice({
             state.userLogin = action.payload;
         },
         clearReduxState: (state) => {
-                (state.userBet = "1.00"),
-                (state.userChoice = "no"),
-                (state.diceSide = 6),
-                (state.diceBetSide = 1),
-                (state.userPassword = ""),
-                (state.userLogin = ""),
-                (state.isLoginWidgetActive = true),
-                (state.userInfoObj = clientSample);
+            state.userBet = "1.00";
+            state.userChoice = "no";
+            state.diceSide = 6;
+            state.diceBetSide = 1;
+            state.userPassword = "";
+            state.userLogin = "";
+            state.isLoginWidgetActive = true;
+            state.userInfoObj = clientSample;
         },
         setUserInfoObj: (state, action) => {
             state.userInfoObj = action.payload;

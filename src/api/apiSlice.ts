@@ -1,5 +1,14 @@
-import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { getItemWebStorage, setItemWebStorage } from "../features/webStorageSaver";
+import {
+    BaseQueryFn,
+    FetchArgs,
+    FetchBaseQueryError,
+    createApi,
+    fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
+import {
+    getItemWebStorage,
+    setItemWebStorage,
+} from "../features/webStorageSaver";
 
 interface IAuthResponse {
     status: string;
@@ -75,12 +84,7 @@ export const newBettingApi = createApi({
 
 export const { useLoginMutation, useGetCurrentUserQuery } = newBettingApi;
 
-export const setAuth = (auth: { user: any }) => ({
-    type: "newBetting/setAuth",
-    payload: auth,
-});
-
-export const setAuthToken = (token: string) => ({
+const setAuthToken = (token: string) => ({
     type: "newBetting/setAuthToken",
     payload: token,
 });

@@ -1,4 +1,3 @@
-import "./App.css";
 import { DicePage } from "../pages/DicePage";
 
 function App() {
