@@ -47,7 +47,7 @@ export const Header = () => {
                         {validateMoneyAmount(parseFloat(actualBalance))} (
                         {actualCurrency})
                         <button
-                            className="login-button sign-in-button"
+                            className="login-button balance-updating"
                             onClick={updateBalance}
                         >
                             {betVocabulary.updateBalance}
